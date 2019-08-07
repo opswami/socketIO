@@ -1,0 +1,21 @@
+<body>
+    <ol id="msgs"></ol>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>
+  var socket = io.connect('http://127.0.0.1:5000/');
+
+  socket.on('ping_msg', function(msg) {
+    console.log(msg)
+    socket.emit('pong_message', 'PONG');
+    $('#msgs').append($('<li>').text(msg))
+  });
+
+  socket.on('disconnect', function(msg) {
+    console.log('disconnecting')
+    socket.disconnect()
+  });
+</script>
+</body>
